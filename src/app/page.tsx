@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -19,6 +20,8 @@ import {
 import { GameCard } from "@/components/game/GameCard";
 import { WinScreen } from "@/components/game/WinScreen";
 import { Button } from "@/components/ui/button";
+import { LevelCompleteScreen } from "@/components/game/LevelCompleteScreen";
+import { PlayerNameForm } from "@/components/game/PlayerNameForm";
 
 type CardData = {
   id: number;
@@ -61,6 +64,8 @@ export default function Home() {
   const [moves, setMoves] = useState(0);
   const [gameWon, setGameWon] = useState(false);
   const [levelComplete, setLevelComplete] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [gameStarted, setGameStarted] = useState(false);
 
   const getPairsForLevel = (level: number) => level + 1;
 
@@ -88,10 +93,13 @@ export default function Home() {
   );
 
   useEffect(() => {
-    initializeGame(level);
-  }, [level, initializeGame]);
+    if(gameStarted) {
+      initializeGame(level);
+    }
+  }, [level, initializeGame, gameStarted]);
 
   useEffect(() => {
+    if(!gameStarted) return;
     const numPairs = getPairsForLevel(level);
     if (matchedKeys.length > 0 && matchedKeys.length === numPairs) {
       if (level === MAX_LEVEL) {
@@ -101,7 +109,7 @@ export default function Home() {
         setLevelComplete(true);
       }
     }
-  }, [matchedKeys, level]);
+  }, [matchedKeys, level, gameStarted]);
 
   useEffect(() => {
     if (flippedIndices.length === 2) {
@@ -146,6 +154,19 @@ export default function Home() {
     }
   }
 
+  const handleStartGame = (name: string) => {
+    setPlayerName(name);
+    setGameStarted(true);
+  }
+
+  if (!gameStarted) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 bg-background">
+        <PlayerNameForm onStartGame={handleStartGame} />
+      </main>
+    );
+  }
+
   const gridCols = `grid-cols-${Math.ceil(Math.sqrt(getPairsForLevel(level) * 2))}`;
   const gridLayout = `grid ${gridCols} gap-2 sm:gap-4`;
 
@@ -157,16 +178,12 @@ export default function Home() {
             Flip & Match
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
+            <div className="text-lg font-semibold text-foreground/80 rounded-lg bg-card px-4 py-2">Player: {playerName}</div>
             <div className="text-lg font-semibold text-foreground/80 rounded-lg bg-card px-4 py-2">Level: {level}</div>
             <div className="text-lg font-semibold text-foreground/80 rounded-lg bg-card px-4 py-2">Moves: {moves}</div>
             <Button onClick={handleResetGame} variant="default">
               Reset Game
             </Button>
-            {levelComplete && (
-              <Button onClick={handleNextLevel} variant="default">
-                Next Level
-              </Button>
-            )}
           </div>
         </header>
 
@@ -187,6 +204,7 @@ export default function Home() {
         </footer>
       </div>
       <WinScreen open={gameWon} onPlayAgain={handleResetGame} />
+      <LevelCompleteScreen open={levelComplete} onNextLevel={handleNextLevel} level={level} />
     </main>
   );
 }
