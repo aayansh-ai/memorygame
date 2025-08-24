@@ -14,9 +14,10 @@ import { PartyPopper } from "lucide-react";
 interface WinScreenProps {
   open: boolean;
   onPlayAgain: () => void;
+  playerName: string;
 }
 
-export function WinScreen({ open, onPlayAgain }: WinScreenProps) {
+export function WinScreen({ open, onPlayAgain, playerName }: WinScreenProps) {
   return (
     <AlertDialog open={open}>
       <AlertDialogContent className="max-w-sm">
@@ -25,10 +26,10 @@ export function WinScreen({ open, onPlayAgain }: WinScreenProps) {
             <PartyPopper className="h-12 w-12 text-accent-foreground" />
           </div>
           <AlertDialogTitle className="text-center text-3xl font-bold font-headline">
-            You Win!
+            Congratulations {playerName}!!
           </AlertDialogTitle>
           <AlertDialogDescription className="text-center text-base pt-2">
-            Congratulations, you've completed all the levels!
+            You've completed all the levels!
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

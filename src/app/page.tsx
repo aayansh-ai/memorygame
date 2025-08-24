@@ -203,8 +203,8 @@ export default function Home() {
           <p>A fun game by Firebase Studio</p>
         </footer>
       </div>
-      <WinScreen open={gameWon} onPlayAgain={handleResetGame} />
-      <LevelCompleteScreen open={levelComplete} onNextLevel={handleNextLevel} level={level} />
+      <WinScreen open={gameWon} onPlayAgain={handleResetGame} playerName={playerName} />
+      <LevelCompleteScreen open={levelComplete} onNextLevel={handleNextLevel} level={level} playerName={playerName} />
     </main>
   );
 }

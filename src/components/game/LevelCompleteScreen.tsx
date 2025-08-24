@@ -18,9 +18,10 @@ interface LevelCompleteScreenProps {
   open: boolean;
   onNextLevel: () => void;
   level: number;
+  playerName: string;
 }
 
-export function LevelCompleteScreen({ open, onNextLevel, level }: LevelCompleteScreenProps) {
+export function LevelCompleteScreen({ open, onNextLevel, level, playerName }: LevelCompleteScreenProps) {
   const { width, height } = useWindowSize();
 
   return (
@@ -35,7 +36,7 @@ export function LevelCompleteScreen({ open, onNextLevel, level }: LevelCompleteS
             Level {level} Complete!
           </AlertDialogTitle>
           <AlertDialogDescription className="text-center text-base pt-2">
-            Great job! You're ready for the next challenge.
+            Great job, {playerName}! You're ready for the next challenge.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
