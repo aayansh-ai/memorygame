@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PartyPopper } from "lucide-react";
 import Confetti from "react-confetti";
-import { useWindowSize } from "@uidotdev/react-use";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 interface LevelCompleteScreenProps {
   open: boolean;
