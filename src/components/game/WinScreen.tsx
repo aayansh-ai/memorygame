@@ -2,7 +2,6 @@
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -29,7 +28,7 @@ export function WinScreen({ open, onPlayAgain }: WinScreenProps) {
             You Win!
           </AlertDialogTitle>
           <AlertDialogDescription className="text-center text-base pt-2">
-            Congratulations, you've matched all the pairs!
+            Congratulations, you've completed all the levels!
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
