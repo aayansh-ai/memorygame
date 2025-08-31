@@ -200,7 +200,7 @@ export default function Home() {
         </div>
 
         <footer className="text-center mt-8 text-muted-foreground">
-          <p>A fun game by Firebase Studio</p>
+          <p>A fun game by Aayansh Jena</p>
         </footer>
       </div>
       <WinScreen open={gameWon} onPlayAgain={handleResetGame} playerName={playerName} />
